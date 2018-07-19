@@ -1,7 +1,7 @@
-#MULLVAD WIREGUARD TELEGRAM BOT (MWTB)
-##PLEASE NOTE THAT I'M A COMPLETE DISASTER AT CODING
-#####So teach me the proper way to do it.
-######Also note that english is not my native language
+# MULLVAD WIREGUARD TELEGRAM BOT (MWTB)
+## PLEASE NOTE THAT I'M A COMPLETE DISASTER AT CODING
+##### So teach me the proper way to do it.
+###### Also note that english is not my native language
 
 
 This tool is designed to help manage forward and get various account informations (such as wireguard configs) from
