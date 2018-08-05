@@ -5,7 +5,7 @@
 
 
 This tool is designed to help manage forward and get various account informations (such as wireguard configs) from
-a telegram bot.
+a telegram bot. (since mullvad doesn't provide an api for that)
 
 **It is far from being pretty and uses hacks and poor performing method to get the job done.** (but since i don't know any other way ¯\_(ツ)_/¯)
 

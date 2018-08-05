@@ -1,5 +1,5 @@
-from mullvadaccount import getAccount
-from bs4 import BeautifulSoup
+from mullvadaccount import getAccount, getExpiration, getPorts
+from datetime import timedelta, datetime
 from utils import loadconfig
 
 
@@ -8,10 +8,17 @@ name = "mullvadbot"
 config = loadconfig()
 accountnumber = config['Mullvad']['MullvadAccount']
 
-browser = getAccount(accountnumber)
-page = str(browser.get_current_page())
+authorized_browser = getAccount(accountnumber)
+expired = getExpiration(authorized_browser)
 
-soup = BeautifulSoup(page, 'html.parser')
+if expired < datetime.now():
+    print('expired')
+if expired < (datetime.now() + timedelta(days=5)):
+    print('about to expire')
+else:
+    print('valid')
 
-expire = soup.find('h4', attrs={'class': 'balance-header'}).text.strip()
-print(expire)
+
+
+
+
