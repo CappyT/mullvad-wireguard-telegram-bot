@@ -12,9 +12,11 @@ authorized_browser = getAccount(accountnumber)
 expired = getExpiration(authorized_browser)
 
 if expired < datetime.now():
-    print('expired')
-if expired < (datetime.now() + timedelta(days=5)):
-    print('about to expire')
+    if expired < (datetime.now() + timedelta(days=5)) and expired != datetime(2001, 1, 1):
+        # Checking against hardcoded value to be sure
+        print('about to expire')
+    else:
+        print('expired')
 else:
     print('valid')
 
