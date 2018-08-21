@@ -1,6 +1,27 @@
 import mechanicalsoup
+import collections
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import timedelta, datetime
+
+
+def startMullvad(config):
+    accountnumber = config['Mullvad']['MullvadAccount']
+    Mullvad = collections.namedtuple('Mullvad', ['status', 'authorized_browser'])
+    Mullvad.authorized_browser = getAccount(accountnumber)
+    expired = getExpiration(Mullvad.authorized_browser)
+
+    if expired < datetime.now():
+        if expired < (datetime.now() + timedelta(days=5)) and expired != datetime(2001, 1, 1):
+            # Checking against hardcoded value to be sure
+            Mullvad.status = 'about to expire'
+        else:
+            Mullvad.status = 'expired'
+    elif expired > datetime.now():
+        Mullvad.status = 'valid'
+    else:
+        Mullvad.status = 'error'
+    return Mullvad
+
 
 def getAccount(accountnumber):
     browser = mechanicalsoup.StatefulBrowser()
@@ -28,3 +49,9 @@ def getPorts(authorized_browser):
     authorized_browser.open("https://mullvad.net/en/account/")
     print(authorized_browser.get)
     # TODO: Correctly implement ports
+
+
+def getRenewAddress(authorized_browser):
+    authorized_browser.open("https://mullvad.net/en/account/")
+    print(authorized_browser.get)
+    # TODO: Correctly implement bitcoin address get
