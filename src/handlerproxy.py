@@ -10,3 +10,4 @@ def registerhandler(dispatcher):
 
 class Commands(Enum):
     start = "start"
+    status = "status"

@@ -4,9 +4,7 @@ from telegram.ext import Updater
 from handlerproxy import registerhandler
 import logging
 
-
 name = "mullvadbot"
-
 config = loadconfig()
 
 updater = Updater(token=config['TelegramBot']['Token'])
@@ -16,7 +14,6 @@ registerhandler(dispatcher)
 
 
 if config['Mullvad']['Active'] == '1':
-    global vpn
     vpn = startMullvad(config)
 if config['TelegramBot']['Enabled'] == '1':
     updater.start_polling()
