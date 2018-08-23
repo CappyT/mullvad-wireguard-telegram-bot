@@ -38,10 +38,10 @@ def getExpiration(authorized_browser):
     soup = BeautifulSoup(page, 'html.parser')
     try:
         expire = datetime.strptime(soup.find('h4', attrs={'class': 'balance-header'}).text.strip().split('\n')[0]
-                               .split(': ', 1)[-1], '%d %B %Y')
+                                   .split(': ', 1)[-1], '%d %B %Y')
         return expire
     except:
-        expire = datetime(2001, 1, 1) # Hardcode a value just to pass its results.
+        expire = datetime(2001, 1, 1)  # Hardcode a value just to pass its results.
         return expire
 
 

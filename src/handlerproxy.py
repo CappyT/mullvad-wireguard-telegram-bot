@@ -8,6 +8,7 @@ def registerhandler(dispatcher):
         handler_proxy = CommandHandler(c.value, getattr(commands, c.value))
         dispatcher.add_handler(handler_proxy)
 
+
 class Commands(Enum):
     start = "start"
     status = "status"
