@@ -1,0 +1,7 @@
+it:
+  status:
+    expired: "L'account è scaduto il %{date}, rinnovalo usando /renew"
+    aboutexpire: "L'account fa per scadere, scadrà in data: %{name}"
+    valid: "L'account è attivo, scade in data: %{name}"
+    error: "Errore durante il controllo della data di scadenza."
+  nocommand: "Comando non riconosciuto."
