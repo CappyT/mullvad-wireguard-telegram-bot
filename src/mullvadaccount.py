@@ -2,24 +2,27 @@ import mechanicalsoup
 import collections
 from bs4 import BeautifulSoup
 from datetime import timedelta, datetime
+from utils import log
 
 
 def startMullvad(config):
     accountnumber = config['Mullvad']['MullvadAccount']
-    Mullvad = collections.namedtuple('Mullvad', ['status', 'authorized_browser'])
+    Mullvad = collections.namedtuple('Mullvad', ['status', 'authorized_browser', 'expiredate'])
     Mullvad.authorized_browser = getAccount(accountnumber)
     expired = getExpiration(Mullvad.authorized_browser)
+    Mullvad.expiredate = expired
 
     if expired < datetime.now():
         if expired < (datetime.now() + timedelta(days=5)) and expired != datetime(2001, 1, 1):
             # Checking against hardcoded value to be sure
-            Mullvad.status = 'about to expire'
+            Mullvad.status = 'aboutexpire'
         else:
             Mullvad.status = 'expired'
     elif expired > datetime.now():
         Mullvad.status = 'valid'
     else:
         Mullvad.status = 'error'
+    log('Mullvad configuration loaded.', 'info')
     return Mullvad
 
 
