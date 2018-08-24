@@ -9,13 +9,19 @@ import os
 
 
 name = "mullvadbot"
-log('starting...', 'info')
 vars.init()
 config = loadconfig()
+log('starting...', 'info')
 i18n.load_path.append('..' + os.sep + 'translations')
-#i18n.set('fallback', 'en')
+i18n.set('fallback', 'en')
 vars.locale = config['TelegramBot']['Locale']
-i18n.set('locale', vars.locale)
+if vars.locale == '':
+    i18n.set('fallback', 'en')
+    vars.locale = 'en'
+else:
+    i18n.set('locale', vars.locale)
+log('Locale loaded', 'info')
+
 
 if config['Mullvad']['Active'] == '1':
     vars.vpn = startMullvad(config)

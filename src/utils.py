@@ -1,9 +1,11 @@
 import configparser
 import os
 import logging
+import vars
 
 
 def loadconfig():
+    global config
     config = configparser.ConfigParser()
 
     if not os.path.exists('config.ini'):
@@ -11,7 +13,7 @@ def loadconfig():
             config['Mullvad'] = {'MullvadAccount': '123456789'}
             config['Mullvad'] = {'Active': '1'}
             config['TelegramBot'] = {'Token': 'https://t.me/token/api', 'PoolInterval': '30', 'Enabled': '1',
-                                     'Locale': 'it'}
+                                     'Locale': 'it', 'Logging': 'info'}
             config.write(configfile)
             logging.info('write config file')
             return config
@@ -22,16 +24,24 @@ def loadconfig():
 
 
 def log(string, loglevel):
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.DEBUG)
-    if loglevel == 'info':
+    logger = logging.getLogger('logger')
+    Log = logging.StreamHandler(logger)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    Log.setFormatter(formatter)
+    logger.addHandler(Log)
+    global config
+    # level = logging.getLevelName((config['TelegramBot']['Logging']).upper())
+    logger.setLevel(config['TelegramBot']['Logging'].upper())
+
+    if loglevel.lower() == 'info':
         logging.info(string)
-    elif loglevel == 'debug':
+    elif loglevel.lower() == 'debug':
         logging.debug(string)
-    elif loglevel == 'warning':
+    elif loglevel.lower() == 'warning':
         logging.warning(string)
-    elif loglevel == 'fatal':
+    elif loglevel.lower() == 'fatal':
         logging.fatal(string)
-    elif loglevel == 'critical':
+    elif loglevel.lower() == 'critical':
         logging.critical(string)
-    elif loglevel == 'error':
+    elif loglevel.lower() == 'error':
         logging.error(string)
